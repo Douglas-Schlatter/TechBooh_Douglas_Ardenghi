@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class PlayerController : MonoBehaviour
 {
     //Camera da Scene
-    public Camera cam;
+    [SerializeField] Camera cam;
 
     //Relacionado a direção do player
     Vector2 mousePos;
@@ -15,6 +17,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform firePoint;
     [SerializeField] float bulletForce = 10f;
+
+    //Relacionado a atributos
+    [SerializeField] int health = 1;
+
+    //Relacionado a Eventos -> Para reduzir dependendicias entre classes
+    public UnityEvent gameOver;
     void Start()
     {
         
@@ -54,4 +62,18 @@ public class PlayerController : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
     }
 
+
+    public void TakeDamage(int damage)
+    {
+
+
+        health -= damage;
+
+        if (health <= 0)
+        {
+            gameOver.Invoke();
+            Destroy(this.gameObject);
+        }
+
+    }
 }
