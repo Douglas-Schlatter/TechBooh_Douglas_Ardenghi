@@ -54,12 +54,25 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void ShootBullet() //TODO NO FUTURO USAR Object pooling
+    void ShootBullet() 
     {
+        /*
+         * Versão Antiga sem ObjectPooling
+         * 
         //Instancie uma Bala na posição do firepoint com o prefab de bala
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         //Va no rigidbody dessa bala e adicione uma força de tamanho BulletForce
         bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
+        */
+        GameObject bullet = ObjectPool.instance.GetPooledBullet();
+        if (bullet != null)
+        {
+            bullet.transform.position = firePoint.position;
+            bullet.transform.rotation = firePoint.rotation;
+            bullet.SetActive(true);
+            bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
+        }
+
     }
 
 

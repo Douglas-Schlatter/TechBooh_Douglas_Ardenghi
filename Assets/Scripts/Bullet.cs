@@ -31,8 +31,8 @@ public class Bullet : MonoBehaviour
             targetHealth.TakeDamage(damage);
             
         }
-        Destroy(gameObject);
-
+        //Destroy(gameObject); // Sem object pooling
+        this.gameObject.SetActive(false);
         /*
          Outra versão que usa como refencia tags
         if (col.tag == "Enemy")
