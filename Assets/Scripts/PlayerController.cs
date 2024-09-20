@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int health = 1;
 
     //Relacionado a Eventos -> Para reduzir dependendicias entre classes
-    public UnityEvent gameOver;
+    public UnityEvent onGameOver;
     void Start()
     {
         
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0)
         {
-            gameOver.Invoke();
+            onGameOver.Invoke();
             Destroy(this.gameObject);
         }
 

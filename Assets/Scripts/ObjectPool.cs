@@ -38,7 +38,7 @@ public class ObjectPool : MonoBehaviour
         {
             GameObject obj = Instantiate(enemyPrefab, this.gameObject.transform);
             obj.SetActive(false);
-            poolBullets.Add(obj);
+            poolEnemys.Add(obj);
         }
     }
 

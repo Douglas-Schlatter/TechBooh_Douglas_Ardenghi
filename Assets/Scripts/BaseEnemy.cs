@@ -35,7 +35,8 @@ public class BaseEnemy : MonoBehaviour
         {
             PlayerController player = col.GetComponent<PlayerController>();
             player.TakeDamage(onHitDamage);
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject); //-> versão sem ObjectPollig
+            this.gameObject.SetActive(false);
         }
 
     }
