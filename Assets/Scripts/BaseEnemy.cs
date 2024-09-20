@@ -25,8 +25,9 @@ public class BaseEnemy : MonoBehaviour
         
     }
 
+
     //TODO NÃO TA FUNCIONANDO
-    void OnTriggerEnter2D(Collider2D col)//TODO REVISAR SE ISSO PODE SER FEITO COM EVENTOS
+    void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log("Inimigo colidiu com: " + col.name);
         //Caso o inimigo coldia com o player tire a quantidade de vida que esse inimigo da de dano;
