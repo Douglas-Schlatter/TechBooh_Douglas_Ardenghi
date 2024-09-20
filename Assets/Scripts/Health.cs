@@ -14,7 +14,7 @@ public class Health : MonoBehaviour
     void Start()
     {
         // Colocamos o gamecontroler como observador/listener desse evento, assim podemos atualizar a quantidade de inimigos e o score
-        onDeath.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().enemyDied); 
+        onDeath.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().EnemyDied); 
     }
 
     public void TakeDamage(int damage)
@@ -35,7 +35,7 @@ public class Health : MonoBehaviour
     
 
 
-    // Update is called once per frame
+
     void Update()
     {
         

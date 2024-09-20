@@ -21,14 +21,28 @@ public class GameManager : MonoBehaviour
     public float lastSpwan = 0.0f;
     public float lastHitPlayer;
 
-    // Start is called before the first frame update
+    //Relacionado a PlayerData
+    [SerializeField] PlayerData playerData;// -> utilizado para manter os scores entre as scenes
 
     void Start()
     {
-        
+        //No inicio da scene devemos verificar o estado da correcReset do playerData:
+        // correctReset recebe true quando: 10 pontos foram obtidos ou com o jogador morrendo -> logo continuamos o jogo normalmente recebendo o score passado pelo playerData
+        // correctReset recebe false quando: saimos do PlayMode e o Scriptable Object tem de ser resetado -> logo devemos resetar o estado de playerData para o inicio do jogo, resetando seu score e nivel
+        if (playerData.correctReset)
+        {
+            score = playerData.score;
+        }
+        else 
+        {
+            playerData.score = 0;
+            playerData.level = 1;
+        }
+        //Colocamos a flag do correctReset como false para caso o jogo seja resetado indevidamente podermos manter essa informação
+        playerData.correctReset = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         //Implimentei este timer pois multiplos inimigos estavam spawnando no mesmo lugar  no inicio da scene mesmo com a restrição de que o espaço de spawn tinha
@@ -39,7 +53,6 @@ public class GameManager : MonoBehaviour
             if (numbOfEnemys < 5)
             {
                 lastSpwan = timer;
-                //Debug.Log("Quero Spawnar inimigo");
                 //Sorteie um spawnpoint que não seja o ultimo selecionado
                 int targetPos = Random.Range(1, spawnPos.Count);
                 if (targetPos != lastTargetPos)
@@ -64,9 +77,13 @@ public class GameManager : MonoBehaviour
     {
         timer += Time.deltaTime;
         //Score não é zero e é divisivel por 10
-        if ((score != 0 )&&(score % 10 == 0))
+        if (score>= playerData.level*10)
         {
-            Debug.Log("Troque de scene");
+            //Debug.Log("Troque de scene");
+            //Atualize os dados em playerData e informe que ele foi resetado de maneira correta
+            playerData.score = score;
+            playerData.level = playerData.level +1;
+            playerData.correctReset = true;
             SceneManager.LoadScene("BattleScene");
         }
 
@@ -77,12 +94,23 @@ public class GameManager : MonoBehaviour
     /// morrendo, fazendo com que o score aumente o numero de imnimigos diminua sem nenhuma conexão
     /// direta com outros scripts
     /// </summary>
-    public void enemyDied() 
+    public void EnemyDied() 
     {
         score++;
         numbOfEnemys--;
     
     }
-
+    /// <summary>
+    /// Essa função sera utilizada para que o GameManager possa reagir ao evento de  fim de jogo quando o player morrer,
+    /// fazendo com que o jogo resete e armazenando que o jogo foi resetado corretamente no playerData
+    /// direta com outros scripts
+    /// </summary>
+    public void GameEnded()
+    {
+        playerData.score = 0;
+        playerData.level = 1;
+        playerData.correctReset = true;
+        SceneManager.LoadScene("BattleScene");
+    }
 
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    //Relacionado a dano da bala
     [SerializeField] int damage = 1;
-    // Start is called before the first frame update
+   
     void Start()
     {
         

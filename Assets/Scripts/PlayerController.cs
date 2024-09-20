@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public UnityEvent onGameOver;
     void Start()
     {
-        
+        onGameOver.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().GameEnded);
     }
 
     
@@ -81,6 +81,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Essa será o methodo que lidará com os danos recebidos pelo player
+    /// posteriormente ativando o evento de "onGameOver"
+    /// </summary>
+    /// <param name="damage"></param>
     public void TakeDamage(int damage)
     {
 
@@ -90,7 +95,8 @@ public class PlayerController : MonoBehaviour
         if (health <= 0)
         {
             onGameOver.Invoke();
-            Destroy(this.gameObject);
+            health = 1;
+            //Destroy(this.gameObject);
         }
 
     }

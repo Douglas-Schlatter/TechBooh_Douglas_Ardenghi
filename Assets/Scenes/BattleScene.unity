@@ -1792,3 +1792,7 @@ MonoBehaviour:
   - {fileID: 419345357}
   - {fileID: 1819091751}
   numbOfEnemys: 0
+  timer: 0
+  lastSpwan: 0
+  lastHitPlayer: 0
+  playerData: {fileID: 11400000, guid: 8188d5717d693b649bb4e6dc169526ba, type: 2}

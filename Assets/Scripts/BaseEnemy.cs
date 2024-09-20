@@ -4,9 +4,8 @@ using UnityEngine;
 
 /*
      O enunciado explicitamente pede para que exista um script somente para a movimentação
-    do inimigo. Eu normalmente faria uma classe "BaseEnemy" como essa que lidaria com os stats, movimentção ecolisões generalistas de inimigos.
+    do inimigo. Eu normalmente faria uma classe "BaseEnemy" como essa que lidaria com os stats, movimentção e colisões generalistas de inimigos.
     Posteriormente outros inimigos poderiam herdar dessa classe e se especializar, sendo mais velozes, mais fortes, etc. Fazendo com que existam diversos tipos de inimigos
- 
  */
 public class BaseEnemy : MonoBehaviour
 {

@@ -9,9 +9,10 @@ public class EnemyMovement : MonoBehaviour
 
     // Relacionado a atributos
     [SerializeField] float speed = 0.1f;
-    // Start is called before the first frame update
+  
     void Start()
     {
+        //Encontramos no jogo o GameObject com tag de player
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
