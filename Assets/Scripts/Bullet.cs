@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
     /// <param name="col"></param>
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(col.name);
+        //Debug.Log(col.name);
         if (col.gameObject.TryGetComponent<Health>(out Health targetHealth))
         {
             targetHealth.TakeDamage(damage);

@@ -29,7 +29,7 @@ public class BaseEnemy : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("Inimigo colidiu com: " + col.name);
+        //Debug.Log("Inimigo colidiu com: " + col.name);
         //Caso o inimigo coldia com o player tire a quantidade de vida que esse inimigo da de dano;
         if (col.tag == "Player")
         {

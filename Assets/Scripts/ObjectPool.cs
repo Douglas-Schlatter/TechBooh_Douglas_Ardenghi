@@ -6,11 +6,13 @@ public class ObjectPool : MonoBehaviour
 {
     //Tem que ser um singleton para ser referenciado em diversos codigos do projeto
     public static ObjectPool instance;
+
     //Relacionado às bullets
     private List<GameObject> poolBullets = new List<GameObject>();
     [SerializeField]  private int numbBullets = 100; //-> coloquei um numero grande para caso o player queira spamar as bullets
 
     [SerializeField] private GameObject bulletPrefab;
+
     //Relacionado aos inimigos
     private List<GameObject> poolEnemys = new List<GameObject>();
     [SerializeField]  private int numbEnemys = 20;
@@ -27,6 +29,7 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
+        //Popule a lista com objetos para serem utilizados ao longo do jogo
         for (int i = 0; i < numbBullets; i++)
         {
             GameObject obj = Instantiate(bulletPrefab,this.gameObject.transform);
@@ -34,6 +37,7 @@ public class ObjectPool : MonoBehaviour
             poolBullets.Add(obj);
         }
 
+        //Popule a lista com objetos para serem utilizados ao longo do jogo
         for (int i = 0; i < numbEnemys; i++)
         {
             GameObject obj = Instantiate(enemyPrefab, this.gameObject.transform);

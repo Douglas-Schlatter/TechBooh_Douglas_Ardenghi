@@ -64,12 +64,17 @@ public class PlayerController : MonoBehaviour
         //Va no rigidbody dessa bala e adicione uma força de tamanho BulletForce
         bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
         */
+
+        //Tente pegar uma bala disponivel para ser reciclada
         GameObject bullet = ObjectPool.instance.GetPooledBullet();
+
         if (bullet != null)
         {
+            //se existir coloque-a na posição do firePoint , a ative e 
             bullet.transform.position = firePoint.position;
             bullet.transform.rotation = firePoint.rotation;
             bullet.SetActive(true);
+            //Va no rigidbody dessa bala e adicione uma força de tamanho BulletForce
             bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
         }
 
