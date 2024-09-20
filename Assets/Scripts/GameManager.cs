@@ -4,25 +4,32 @@ using System.Globalization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+using TMPro;
+
 
 
 public class GameManager : MonoBehaviour
 {
     //Relacionado ao Score
-    [SerializeField] int score = 0;
+    [SerializeField] private int score = 0;
 
     //Relacionado ao sistema de spawn do jogo
-    [SerializeField] List<GameObject> spawnPos = new List<GameObject>();
-    [SerializeField] int numbOfEnemys = 0;
-    int lastTargetPos;
+    [SerializeField] private List<GameObject> spawnPos = new List<GameObject>();
+    [SerializeField] private int numbOfEnemys = 0;
+    private int lastTargetPos;
 
     //Relacionado a timer
-    public float timer = 0.0f;
-    public float lastSpwan = 0.0f;
-    public float lastHitPlayer;
+    [SerializeField] private float timer = 0.0f;
+    [SerializeField] private float lastSpwan = 0.0f;
+    [SerializeField] private float lastHitPlayer;
 
     //Relacionado a PlayerData
-    [SerializeField] PlayerData playerData;// -> utilizado para manter os scores entre as scenes
+    [SerializeField] private PlayerData playerData;// -> utilizado para manter os scores entre as scenes
+
+    //Relacionado a UI
+    [SerializeField] private TextMeshProUGUI scoreTxtValue;
+    [SerializeField] private TextMeshProUGUI levelTxtValue;
 
     void Start()
     {
@@ -32,6 +39,7 @@ public class GameManager : MonoBehaviour
         if (playerData.correctReset)
         {
             score = playerData.score;
+            
         }
         else 
         {
@@ -40,6 +48,8 @@ public class GameManager : MonoBehaviour
         }
         //Colocamos a flag do correctReset como false para caso o jogo seja resetado indevidamente podermos manter essa informação
         playerData.correctReset = false;
+        levelTxtValue.text = playerData.level.ToString();
+        scoreTxtValue.text = score.ToString();
     }
 
 
@@ -96,6 +106,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void EnemyDied() 
     {
+        scoreTxtValue.text = score.ToString(); //TODO ta atualizando estranho
         score++;
         numbOfEnemys--;
     

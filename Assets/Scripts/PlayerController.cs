@@ -10,16 +10,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Camera cam;
 
     //Relacionado a direção do player
-    Vector2 mousePos;
-    Vector2 lookDir;
+    private Vector2 mousePos;
+    private Vector2 lookDir;
 
     //Relacionado a atirar
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] Transform firePoint;
-    [SerializeField] float bulletForce = 10f;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float bulletForce = 10f;
 
     //Relacionado a atributos
-    [SerializeField] int health = 1;
+    [SerializeField] private int health = 1;
 
     //Relacionado a Eventos -> Para reduzir dependendicias entre classes
     public UnityEvent onGameOver;

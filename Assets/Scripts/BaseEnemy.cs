@@ -10,7 +10,7 @@ using UnityEngine;
 public class BaseEnemy : MonoBehaviour
 {
     //Relacionado a Atributos
-    [SerializeField] int onHitDamage = 1;
+    [SerializeField] private int onHitDamage = 1;
 
     // Start is called before the first frame update
     void Start()

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bcd362a233ac2f49aa5c979e2aa54c3, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  score: 0
-  level: 0
+  score: 80
+  level: 9
+  correctReset: 0

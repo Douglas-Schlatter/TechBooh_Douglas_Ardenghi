@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     //Relacionado a tracking
-    [SerializeField] GameObject player;
+    [SerializeField] private GameObject player;
 
     // Relacionado a atributos
-    [SerializeField] float speed = 0.1f;
+    [SerializeField] private float speed = 0.1f;
   
     void Start()
     {

@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     //Relacionado a atributos
-    [SerializeField] int initialHealth = 2;
-    [SerializeField] int health = 2;
+    [SerializeField] private int initialHealth = 2;
+    [SerializeField] private int health = 2;
 
     //Relacionado a eventos
     public UnityEvent onDeath;//-> este é o evento que será chamado quando qualquer inimigo morrer, atulizando qualquer coisa relacionada
