@@ -5,14 +5,16 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    // Start is called before the first frame update
-
+    //Relacionado a atributos
+    [SerializeField] int initialHealth = 2;
     [SerializeField] int health = 2;
 
-    public UnityEvent onDeath;
+    //Relacionado a eventos
+    public UnityEvent onDeath;//-> este é o evento que será chamado quando qualquer inimigo morrer, atulizando qualquer coisa relacionada
     void Start()
     {
-        onDeath.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().enemyDied);
+        // Colocamos o gamecontroler como observador/listener desse evento, assim podemos atualizar a quantidade de inimigos e o score
+        onDeath.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().enemyDied); 
     }
 
     public void TakeDamage(int damage)
@@ -21,10 +23,11 @@ public class Health : MonoBehaviour
 
         health -= damage;
 
+        //Se o inimigo morreu, ative o evento onDeath, resete a vida do inimigo e o desative.
         if (health <= 0)
         {
             onDeath.Invoke();
-
+            health = initialHealth;
             this.gameObject.SetActive(false);
         }
 
