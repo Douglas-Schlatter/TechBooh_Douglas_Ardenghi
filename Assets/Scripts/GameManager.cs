@@ -106,8 +106,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void EnemyDied() 
     {
-        scoreTxtValue.text = score.ToString(); //TODO ta atualizando estranho
         score++;
+        scoreTxtValue.text = score.ToString(); //TODO ta atualizando estranho
         numbOfEnemys--;
     
     }

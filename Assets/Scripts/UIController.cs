@@ -6,6 +6,8 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     // Relacionado a UI
+    [SerializeField] Canvas inGameCanvas;
+    [SerializeField] Canvas gameOverCanvas;
 
     //Relacionado a PlayerData
     [SerializeField] PlayerData playerData;// -> utilizado para manter os scores entre as scenes
@@ -21,7 +23,10 @@ public class UIController : MonoBehaviour
     {
         
     }
+    public void GameEnded()
+    {
+
+    }
 
 
-
-}
+    }
