@@ -17,6 +17,10 @@ public class Health : MonoBehaviour
         onDeath.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().EnemyDied); 
     }
 
+    /// <summary>
+    /// Função responsavel por administrar o dano recebido por personagens
+    /// </summary>
+    /// <param name="damage"></param>
     public void TakeDamage(int damage)
     {
 

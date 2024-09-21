@@ -46,7 +46,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         

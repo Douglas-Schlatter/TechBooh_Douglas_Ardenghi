@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        //Se o jogo não estiver pausado, pege inputs
+        //Se o jogo não estiver pausado, capte inputs
         if (Time.timeScale > 0)
         {
             if (Input.GetButtonDown("Fire1"))
@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
         //Angulo que o player tem de rotacionar
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         //Rotacione no eixo z
-        // TODO CONFERIR SE ISTO ESTA CERTO, ANTES ERA -90, ASSIM TALVEZ DE PROBLEMA NA TRAJETORIA DA BALA
         Quaternion rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward); 
 
         this.gameObject.transform.rotation = rotation;
@@ -60,17 +59,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Função responsavel por utilizar Object Polling para reciclar balas
+    /// atiradas pelo jogador.
+    /// </summary>
     void ShootBullet() 
     {
-        /*
-         * Versão Antiga sem ObjectPooling
-         * 
-        //Instancie uma Bala na posição do firepoint com o prefab de bala
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        //Va no rigidbody dessa bala e adicione uma força de tamanho BulletForce
-        bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
-        */
-
         //Tente pegar uma bala disponivel para ser reciclada
         GameObject bullet = ObjectPool.instance.GetPooledBullet();
 
@@ -88,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
 
     /// <summary>
-    /// Essa será o methodo que lidará com os danos recebidos pelo player
+    /// Essa será o metodo que lidará com os danos recebidos pelo player
     /// posteriormente ativando o evento de "onGameOver"
     /// </summary>
     /// <param name="damage"></param>
@@ -102,7 +96,6 @@ public class PlayerController : MonoBehaviour
         {
             onGameOver.Invoke();
             health = 1;
-            //Destroy(this.gameObject);
         }
 
     }

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //No inicio da scene devemos verificar o estado da correcReset do playerData:
+        //No inicio da scene devemos verificar o estado da variavel correctReset do playerData:
         // correctReset recebe true quando: 10 pontos foram obtidos ou com o jogador morrendo -> logo continuamos o jogo normalmente recebendo o score passado pelo playerData
         // correctReset recebe false quando: saimos do PlayMode e o Scriptable Object tem de ser resetado -> logo devemos resetar o estado de playerData para o inicio do jogo, resetando seu score e nivel
         if (playerData.correctReset)
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
             playerData.score = 0;
             playerData.level = 1;
         }
-        //Colocamos a flag do correctReset como false para caso o jogo seja resetado indevidamente podermos manter essa informação
+        //Colocamos a flag do correctReset como false para caso o jogo seja resetado indevidamente podermos captar essa informação depois
         playerData.correctReset = false;
         levelTxtValue.text = playerData.level.ToString();
         scoreTxtValue.text = score.ToString();
@@ -61,8 +61,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //Implimentei este timer pois multiplos inimigos estavam spawnando no mesmo lugar  no inicio da scene mesmo com a restrição de que o espaço de spawn tinha
-        //que ser diferente a cada spawn. Acredito que estava acontecendo por que antes de "lastTargetPos" recebece "targetPos" outro frame ja passava pelo if novamente.
+        //Implimentei este timer pois multiplos inimigos estavam spawnando no mesmo lugar  no inicio da scene mesmo com a restrição de que o espaço de spawn tenha
+        //que ser diferente em spawns seguidos. Acredito que estava acontecendo por que antes de "lastTargetPos" recebecer o valor "targetPos" outro frame ja passava pelo if novamente.
         if ((timer - lastSpwan) > 0.15)
         {
             //Quero manter sempre 5 inimigos na tela
@@ -91,11 +91,20 @@ public class GameManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        /*
+         Aqui estou usando FixedUpdate para a troca de scene ser independente do Frame Rate do jogo
+         */
+
         timer += Time.deltaTime;
-        //Score não é zero e é divisivel por 10
+        /*Caso o score nesse momento seja maior ou igual ao nivel que estamos * 10, exemplo:
+         * Level 1* 10= 10 para prox nivel
+         * Level 2* 10= 20 para prox nivel
+         * Level 3* 10= 30 para prox nivel
+         * Level 4* 10= 40 para prox nivel
+         * ...
+         * */
         if (score>= playerData.level*10)
         {
-            //Debug.Log("Troque de scene");
             //Atualize os dados em playerData e informe que ele foi resetado de maneira correta
             playerData.score = score;
             playerData.level = playerData.level +1;
@@ -105,24 +114,27 @@ public class GameManager : MonoBehaviour
 
     }
 
+
+    //Implementação das funções que reagem aos eventos ao longo do jogo 
+
     /// <summary>
     /// Essa função sera utilizada para que o GameManager possa reagir ao evento e um inimigo
-    /// morrendo, fazendo com que o score aumente o numero de imnimigos diminua sem nenhuma conexão
+    /// morrer, fazendo com que o score aumente e a contagem de imnimigos diminua sem nenhuma conexão
     /// direta com outros scripts
     /// </summary>
     public void EnemyDied() 
     {
         score++;
-        scoreTxtValue.text = score.ToString(); //TODO ta atualizando estranho
+        scoreTxtValue.text = score.ToString(); 
         numbOfEnemys--;
     
     }
 
 
     /// <summary>
-    /// Essa função sera utilizada para que o GameManager possa reagir ao evento de  fim de jogo quando o player morrer,
+    /// Essa função sera utilizada para que o GameManager possa reagir ao evento de quando o player morrer,
     /// fazendo com que a UI seja chamada para mudar os canvas e enviando o Score Final do jogador
-    /// direta com outros scripts
+    /// sem nenhuma conexão direta com outros scripts
     /// </summary>
     public void CallUI()
     {
