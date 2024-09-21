@@ -25,17 +25,23 @@ public class PlayerController : MonoBehaviour
     public UnityEvent onGameOver;
     void Start()
     {
-        onGameOver.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().GameEnded);
+        // Colocamos o gamecontroler como observador/listener desse evento, assim podemos chama-lo quando o jogador morrer
+        onGameOver.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().CallUI);
     }
 
     
     void Update()
     {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetButtonDown("Fire1"))
+        //Se o jogo não estiver pausado, pege inputs
+        if (Time.timeScale > 0)
         {
-            ShootBullet();
+            if (Input.GetButtonDown("Fire1"))
+            {
+                ShootBullet();
+            }
         }
+
 
     }
 

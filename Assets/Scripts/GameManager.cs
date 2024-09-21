@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using TMPro;
-
+//using UnityEngine.Events;
 
 
 public class GameManager : MonoBehaviour
@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
     //Relacionado a UI
     [SerializeField] private TextMeshProUGUI scoreTxtValue;
     [SerializeField] private TextMeshProUGUI levelTxtValue;
+    [SerializeField] private TextMeshProUGUI totalScoreTxtValue;
+
+    //Relacionado a Eventos -> Para reduzir dependendicias entre classes
+    public UnityEvent callUI;
 
     void Start()
     {
@@ -50,6 +54,8 @@ public class GameManager : MonoBehaviour
         playerData.correctReset = false;
         levelTxtValue.text = playerData.level.ToString();
         scoreTxtValue.text = score.ToString();
+        // Colocamos o UiController como observador/listener desse evento, assim podemos chama-lo quando o jogador morrer
+        callUI.AddListener(GameObject.FindGameObjectWithTag("UI").GetComponent<UIController>().GameEnded);
     }
 
 
@@ -100,7 +106,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Essa função sera utilizada para que o GameManager possa reagir ao eventod e um inimigo
+    /// Essa função sera utilizada para que o GameManager possa reagir ao evento e um inimigo
     /// morrendo, fazendo com que o score aumente o numero de imnimigos diminua sem nenhuma conexão
     /// direta com outros scripts
     /// </summary>
@@ -111,8 +117,22 @@ public class GameManager : MonoBehaviour
         numbOfEnemys--;
     
     }
+
+
     /// <summary>
     /// Essa função sera utilizada para que o GameManager possa reagir ao evento de  fim de jogo quando o player morrer,
+    /// fazendo com que a UI seja chamada para mudar os canvas e enviando o Score Final do jogador
+    /// direta com outros scripts
+    /// </summary>
+    public void CallUI()
+    {
+        callUI.Invoke();
+        totalScoreTxtValue.text = score.ToString();
+
+    }
+
+    /// <summary>
+    /// Essa função sera utilizada para que o GameManager possa reagir ao evento de resetar o jogo,
     /// fazendo com que o jogo resete e armazenando que o jogo foi resetado corretamente no playerData
     /// direta com outros scripts
     /// </summary>
